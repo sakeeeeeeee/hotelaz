@@ -1,0 +1,64 @@
+@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Ensure dropdown menus always appear on top */
+.origin-top-right {
+    z-index: 50 !important;
+}
+
+/* Typing animation effect */
+.typing-animation {
+    @apply overflow-hidden whitespace-nowrap;
+    display: inline-block;
+    border-right: 0.15em solid transparent;
+    width: 0;
+    animation: typing 3.5s steps(30, end) forwards;
+}
+
+.delay-1000 {
+    animation-delay: 1s;
+}
+
+.delay-2000 {
+    animation-delay: 2s;
+}
+
+/* Button gradient */
+.btn-gradient {
+    background: linear-gradient(to right, #3b82f6, #6366f1);
+    transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(to right, #2563eb, #4f46e5);
+    transform: translateY(-2px);
+}
+
+/* Hero section enhancements */
+.animate-text {
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Hover effect for cards */
+.hover-lift {
+    transition: transform 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+}
