@@ -7,6 +7,9 @@ use App\Models\Room;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\ReservationCreated;
+use App\Mail\ReservationConfirmed;
+use Illuminate\Support\Facades\Mail;
 
 class ReservationController extends Controller
 {
@@ -34,7 +37,10 @@ class ReservationController extends Controller
         // Calculate total price
         $checkInDate = Carbon::parse($checkIn);
         $checkOutDate = Carbon::parse($checkOut);
-        $nights = $checkOutDate->diffInDays($checkInDate);
+        $nights = $checkInDate->diffInDays($checkOutDate);
+        if ($nights < 1) {
+            return redirect()->back()->with('error', 'Tanggal check-out harus setelah check-in.')->withInput();
+        }
         $totalPrice = $nights * $room->price_per_night;
 
         return view('reservations.create', compact('room', 'checkIn', 'checkOut', 'guests', 'nights', 'totalPrice'));
@@ -49,6 +55,7 @@ class ReservationController extends Controller
             'total_guests' => 'required|integer|min:1',
             'total_price' => 'required|numeric|min:0',
             'special_requests' => 'nullable|string',
+            'payment_proof' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
         // Check if room is available for the selected dates
@@ -71,6 +78,12 @@ class ReservationController extends Controller
             return back()->with('error', 'Kamar ini tidak tersedia untuk tanggal yang dipilih.');
         }
 
+        // Handle upload payment proof
+        $paymentProofPath = null;
+        if ($request->hasFile('payment_proof')) {
+            $paymentProofPath = $request->file('payment_proof')->store('payment_proofs', 'public');
+        }
+
         $reservation = new Reservation();
         $reservation->user_id = Auth::id();
         $reservation->room_id = $request->room_id;
@@ -80,8 +93,12 @@ class ReservationController extends Controller
         $reservation->total_price = $request->total_price;
         $reservation->special_requests = $request->special_requests;
         $reservation->status = 'pending';
-        $reservation->payment_status = 'pending';
+        $reservation->payment_status = 'waiting_confirmation';
+        $reservation->payment_proof = $paymentProofPath;
         $reservation->save();
+
+        // Kirim email notifikasi ke user
+        Mail::to($reservation->user->email)->send(new ReservationCreated($reservation));
 
         // TODO: Redirect to payment gateway
 
@@ -108,5 +125,40 @@ class ReservationController extends Controller
         // TODO: Handle refund if payment has been made
         
         return redirect()->route('reservations.index')->with('success', 'Reservasi berhasil dibatalkan.');
+    }
+
+    public function update(Request $request, Reservation $reservation)
+    {
+        \Log::info('ReservationController@update called', $request->all());
+
+        if ($request->action === 'update_payment') {
+            $validated = $request->validate([
+                'payment_status' => 'required|in:pending,paid,failed',
+            ]);
+
+            $reservation->update($validated);
+
+            // Jika status pembayaran menjadi paid, kirim email konfirmasi ke user
+            if ($request->payment_status === 'paid') {
+                \Log::info('Sending ReservationConfirmed email (paid) to: ' . $reservation->user->email);
+                Mail::to($reservation->user->email)->send(new ReservationConfirmed($reservation));
+            }
+
+            return back()->with('success', 'Payment status updated successfully.');
+        }
+        if ($request->action === 'update_status') {
+            $validated = $request->validate([
+                'status' => 'required|in:pending,confirmed,checked_in,checked_out,cancelled',
+            ]);
+            $reservation->update($validated);
+
+            // Jika status reservasi menjadi confirmed, kirim email konfirmasi ke user
+            if ($request->status === 'confirmed') {
+                \Log::info('Sending ReservationConfirmed email (confirmed) to: ' . $reservation->user->email);
+                Mail::to($reservation->user->email)->send(new ReservationConfirmed($reservation));
+            }
+
+            return back()->with('success', 'Reservation status updated successfully.');
+        }
     }
 } 

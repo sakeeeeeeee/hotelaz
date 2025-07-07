@@ -4,18 +4,18 @@
 
 @section('content')
     <!-- Hero Section -->
-    <div class="relative bg-gray-900 overflow-hidden">
+    <div class="relative bg-darkest-green overflow-hidden">
         <div class="absolute inset-0">
             <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" alt="Restaurant" class="w-full h-full object-cover opacity-50">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-darkest-green"></div>
         </div>
         
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
             <div class="text-center">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight slide-in">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-lightest-green tracking-tight slide-in">
                     Restaurant & Dining
                 </h1>
-                <p class="mt-6 max-w-2xl mx-auto text-xl text-gray-300 slide-in">
+                <p class="mt-6 max-w-2xl mx-auto text-xl text-light-green slide-in">
                     Experience culinary excellence with our gourmet dishes prepared by world-class chefs
                 </p>
             </div>
@@ -23,50 +23,50 @@
     </div>
 
     <!-- Main Content -->
-    <div class="bg-white py-12">
+    <div class="bg-lightest-green py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:grid lg:grid-cols-2 lg:gap-x-8">
                 <div>
-                    <h2 class="text-3xl font-extrabold text-gray-900">Culinary Excellence</h2>
-                    <p class="mt-4 text-lg text-gray-500">
+                    <h2 class="text-3xl font-extrabold text-darkest-green">Culinary Excellence</h2>
+                    <p class="mt-4 text-lg text-dark-green">
                         Our restaurant offers an exceptional dining experience with a diverse menu that celebrates both local Indonesian flavors and international cuisine. Each dish is thoughtfully prepared by our talented chefs using the freshest ingredients sourced from local producers.
                     </p>
-                    <p class="mt-4 text-lg text-gray-500">
+                    <p class="mt-4 text-lg text-dark-green">
                         Whether you're joining us for breakfast, lunch, or dinner, you'll find a variety of options to satisfy your palate. Our attentive staff is dedicated to providing outstanding service to ensure your dining experience is nothing short of exceptional.
                     </p>
 
                     <div class="mt-8">
-                        <h3 class="text-2xl font-bold text-gray-900">Opening Hours</h3>
-                        <div class="mt-4 border-t border-b border-gray-200 py-4">
+                        <h3 class="text-2xl font-bold text-darkest-green">Opening Hours</h3>
+                        <div class="mt-4 border-t border-b border-light-green py-4">
                             <div class="flex justify-between py-2">
-                                <span class="text-gray-500">Breakfast</span>
-                                <span class="font-medium text-gray-900">6:30 AM - 10:30 AM</span>
+                                <span class="text-dark-green">Breakfast</span>
+                                <span class="font-medium text-darkest-green">6:30 AM - 10:30 AM</span>
                             </div>
                             <div class="flex justify-between py-2">
-                                <span class="text-gray-500">Lunch</span>
-                                <span class="font-medium text-gray-900">12:00 PM - 3:00 PM</span>
+                                <span class="text-dark-green">Lunch</span>
+                                <span class="font-medium text-darkest-green">12:00 PM - 3:00 PM</span>
                             </div>
                             <div class="flex justify-between py-2">
-                                <span class="text-gray-500">Dinner</span>
-                                <span class="font-medium text-gray-900">6:00 PM - 10:30 PM</span>
+                                <span class="text-dark-green">Dinner</span>
+                                <span class="font-medium text-darkest-green">6:00 PM - 10:30 PM</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="mt-8">
-                        <h3 class="text-2xl font-bold text-gray-900">Dress Code</h3>
-                        <p class="mt-4 text-lg text-gray-500">
+                        <h3 class="text-2xl font-bold text-darkest-green">Dress Code</h3>
+                        <p class="mt-4 text-lg text-dark-green">
                             Smart casual attire is recommended for dinner. For breakfast and lunch, casual attire is acceptable.
                         </p>
                     </div>
 
                     <div class="mt-8">
-                        <h3 class="text-2xl font-bold text-gray-900">Reservations</h3>
-                        <p class="mt-4 text-lg text-gray-500">
+                        <h3 class="text-2xl font-bold text-darkest-green">Reservations</h3>
+                        <p class="mt-4 text-lg text-dark-green">
                             Reservations are recommended, especially for dinner. Please contact our restaurant team to secure your table.
                         </p>
                         <div class="mt-4">
-                            <a href="{{ route('contact') }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                            <a href="{{ route('contact') }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-lightest-green bg-medium-green hover:bg-dark-green">
                                 Make a Reservation
                             </a>
                         </div>
@@ -93,103 +93,103 @@
     </div>
 
     <!-- Menu Highlights -->
-    <div class="bg-gray-100 py-12">
+    <div class="bg-light-green py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                <h2 class="text-3xl font-extrabold text-darkest-green sm:text-4xl">
                     Menu Highlights
                 </h2>
-                <p class="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4">
+                <p class="mt-3 max-w-2xl mx-auto text-xl text-dark-green sm:mt-4">
                     A selection of our most popular dishes from our award-winning menu
                 </p>
             </div>
             
             <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Indonesian Specialties</h3>
+                <div class="bg-lightest-green p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-darkest-green mb-2">Indonesian Specialties</h3>
                     <ul class="space-y-4">
                         <li>
                             <div class="flex justify-between">
-                                <span class="font-medium">Nasi Goreng Special</span>
-                                <span class="text-indigo-600">Rp 120.000</span>
+                                <span class="font-medium text-dark-green">Nasi Goreng Special</span>
+                                <span class="text-medium-green">Rp 120.000</span>
                             </div>
-                            <p class="text-gray-500 text-sm mt-1">Traditional Indonesian fried rice with prawns, chicken, and vegetables, served with satay and fried egg</p>
+                            <p class="text-dark-green text-sm mt-1">Traditional Indonesian fried rice with prawns, chicken, and vegetables, served with satay and fried egg</p>
                         </li>
                         <li>
                             <div class="flex justify-between">
-                                <span class="font-medium">Sate Ayam</span>
-                                <span class="text-indigo-600">Rp 95.000</span>
+                                <span class="font-medium text-dark-green">Sate Ayam</span>
+                                <span class="text-medium-green">Rp 95.000</span>
                             </div>
-                            <p class="text-gray-500 text-sm mt-1">Grilled chicken skewers served with peanut sauce and rice cake</p>
+                            <p class="text-dark-green text-sm mt-1">Grilled chicken skewers served with peanut sauce and rice cake</p>
                         </li>
                         <li>
                             <div class="flex justify-between">
-                                <span class="font-medium">Rendang Sapi</span>
-                                <span class="text-indigo-600">Rp 150.000</span>
+                                <span class="font-medium text-dark-green">Rendang Sapi</span>
+                                <span class="text-medium-green">Rp 150.000</span>
                             </div>
-                            <p class="text-gray-500 text-sm mt-1">Slow-cooked beef in rich coconut milk and spices</p>
+                            <p class="text-dark-green text-sm mt-1">Slow-cooked beef in rich coconut milk and spices</p>
                         </li>
                     </ul>
                 </div>
                 
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">International Cuisine</h3>
+                <div class="bg-lightest-green p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-darkest-green mb-2">International Cuisine</h3>
                     <ul class="space-y-4">
                         <li>
                             <div class="flex justify-between">
-                                <span class="font-medium">Grilled Salmon</span>
-                                <span class="text-indigo-600">Rp 180.000</span>
+                                <span class="font-medium text-dark-green">Grilled Salmon</span>
+                                <span class="text-medium-green">Rp 180.000</span>
                             </div>
-                            <p class="text-gray-500 text-sm mt-1">Served with asparagus, baby potatoes and lemon butter sauce</p>
+                            <p class="text-dark-green text-sm mt-1">Served with asparagus, baby potatoes and lemon butter sauce</p>
                         </li>
                         <li>
                             <div class="flex justify-between">
-                                <span class="font-medium">Beef Tenderloin</span>
-                                <span class="text-indigo-600">Rp 225.000</span>
+                                <span class="font-medium text-dark-green">Beef Tenderloin</span>
+                                <span class="text-medium-green">Rp 225.000</span>
                             </div>
-                            <p class="text-gray-500 text-sm mt-1">Grilled to your preference, served with mashed potatoes and seasonal vegetables</p>
+                            <p class="text-dark-green text-sm mt-1">Grilled to your preference, served with mashed potatoes and seasonal vegetables</p>
                         </li>
                         <li>
                             <div class="flex justify-between">
-                                <span class="font-medium">Mushroom Risotto</span>
-                                <span class="text-indigo-600">Rp 135.000</span>
+                                <span class="font-medium text-dark-green">Mushroom Risotto</span>
+                                <span class="text-medium-green">Rp 135.000</span>
                             </div>
-                            <p class="text-gray-500 text-sm mt-1">Creamy Italian rice with assorted mushrooms, truffle oil and parmesan</p>
+                            <p class="text-dark-green text-sm mt-1">Creamy Italian rice with assorted mushrooms, truffle oil and parmesan</p>
                         </li>
                     </ul>
                 </div>
                 
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Desserts & Beverages</h3>
+                <div class="bg-lightest-green p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-darkest-green mb-2">Desserts & Beverages</h3>
                     <ul class="space-y-4">
                         <li>
                             <div class="flex justify-between">
-                                <span class="font-medium">Crème Brûlée</span>
-                                <span class="text-indigo-600">Rp 75.000</span>
+                                <span class="font-medium text-dark-green">Crème Brûlée</span>
+                                <span class="text-medium-green">Rp 75.000</span>
                             </div>
-                            <p class="text-gray-500 text-sm mt-1">Classic vanilla custard with caramelized sugar crust</p>
+                            <p class="text-dark-green text-sm mt-1">Classic vanilla custard with caramelized sugar crust</p>
                         </li>
                         <li>
                             <div class="flex justify-between">
-                                <span class="font-medium">Pisang Goreng</span>
-                                <span class="text-indigo-600">Rp 65.000</span>
+                                <span class="font-medium text-dark-green">Pisang Goreng</span>
+                                <span class="text-medium-green">Rp 65.000</span>
                             </div>
-                            <p class="text-gray-500 text-sm mt-1">Traditional fried banana served with palm sugar syrup and vanilla ice cream</p>
+                            <p class="text-dark-green text-sm mt-1">Traditional fried banana served with palm sugar syrup and vanilla ice cream</p>
                         </li>
                         <li>
                             <div class="flex justify-between">
-                                <span class="font-medium">Signature Cocktails</span>
-                                <span class="text-indigo-600">From Rp 110.000</span>
+                                <span class="font-medium text-dark-green">Signature Cocktails</span>
+                                <span class="text-medium-green">From Rp 110.000</span>
                             </div>
-                            <p class="text-gray-500 text-sm mt-1">Ask your server about our selection of handcrafted cocktails</p>
+                            <p class="text-dark-green text-sm mt-1">Ask your server about our selection of handcrafted cocktails</p>
                         </li>
                     </ul>
                 </div>
             </div>
             
             <div class="mt-12 text-center">
-                <p class="text-gray-500 mb-4">*Please note that menu items and prices are subject to change</p>
-                <a href="#" class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                <p class="text-dark-green mb-4">*Please note that menu items and prices are subject to change</p>
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-light-green shadow-sm text-base font-medium rounded-md text-darkest-green bg-lightest-green hover:bg-light-green">
                     Download Full Menu
                 </a>
             </div>
@@ -197,13 +197,13 @@
     </div>
 
     <!-- Gallery -->
-    <div class="bg-white py-12">
+    <div class="bg-lightest-green py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                <h2 class="text-3xl font-extrabold text-darkest-green sm:text-4xl">
                     Gallery
                 </h2>
-                <p class="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4">
+                <p class="mt-3 max-w-2xl mx-auto text-xl text-dark-green sm:mt-4">
                     Take a visual tour of our restaurant and dishes
                 </p>
             </div>
@@ -229,15 +229,15 @@
     </div>
 
     <!-- CTA Section -->
-    <div class="bg-indigo-700">
+    <div class="bg-medium-green">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-            <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+            <h2 class="text-3xl font-extrabold tracking-tight text-lightest-green sm:text-4xl">
                 <span class="block">Ready to experience our cuisine?</span>
-                <span class="block text-indigo-200">Make a reservation today.</span>
+                <span class="block text-medium-green">Make a reservation today.</span>
             </h2>
             <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
                 <div class="inline-flex rounded-md shadow">
-                    <a href="{{ route('contact') }}" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50">
+                    <a href="{{ route('contact') }}" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-medium-green bg-lightest-green hover:bg-medium-green">
                         Contact Us
                     </a>
                 </div>

@@ -9,6 +9,7 @@ use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 // Public routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -116,3 +117,13 @@ Route::middleware(['auth', \App\Http\Middleware\IsAdmin::class])->prefix('admin'
     Route::get('/upload-image', [HomeController::class, 'uploadForm'])->name('image.form');
     Route::post('/upload-image', [HomeController::class, 'uploadImage'])->name('image.upload');
 });
+
+Route::get('/storage/image/{path}', function ($path) {
+    $fullPath = storage_path('app/public/' . $path);
+    
+    if (file_exists($fullPath)) {
+        return response()->file($fullPath);
+    }
+    
+    abort(404);
+})->where('path', '.*')->name('storage.image');

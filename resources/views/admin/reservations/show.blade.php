@@ -110,15 +110,15 @@
                         </div>
                         <div class="flex">
                             <div class="w-32 text-sm font-medium text-gray-500">Check In</div>
-                            <div class="flex-1 text-sm">{{ $reservation->check_in->format('d M Y') }}</div>
+                            <div class="flex-1 text-sm">{{ $reservation->check_in_date ? $reservation->check_in_date->format('d M Y') : '-' }}</div>
                         </div>
                         <div class="flex">
                             <div class="w-32 text-sm font-medium text-gray-500">Check Out</div>
-                            <div class="flex-1 text-sm">{{ $reservation->check_out->format('d M Y') }}</div>
+                            <div class="flex-1 text-sm">{{ $reservation->check_out_date ? $reservation->check_out_date->format('d M Y') : '-' }}</div>
                         </div>
                         <div class="flex">
                             <div class="w-32 text-sm font-medium text-gray-500">Nights</div>
-                            <div class="flex-1 text-sm">{{ $reservation->check_in->diffInDays($reservation->check_out) }}</div>
+                            <div class="flex-1 text-sm">{{ ($reservation->check_in_date && $reservation->check_out_date) ? $reservation->check_in_date->diffInDays($reservation->check_out_date) : '-' }}</div>
                         </div>
                         <div class="flex">
                             <div class="w-32 text-sm font-medium text-gray-500">Guests</div>
@@ -142,7 +142,7 @@
                     </div>
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-sm font-medium text-gray-500">Number of Nights</span>
-                        <span class="text-sm">{{ $reservation->check_in->diffInDays($reservation->check_out) }}</span>
+                        <span class="text-sm">{{ ($reservation->check_in_date && $reservation->check_out_date) ? $reservation->check_in_date->diffInDays($reservation->check_out_date) : '-' }}</span>
                     </div>
                     @if($reservation->discount > 0)
                     <div class="flex justify-between items-center mb-2">
@@ -175,6 +175,10 @@
                                     <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                                         Failed
                                     </span>
+                                @elseif($reservation->payment_status === 'waiting_confirmation')
+                                    <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-amber-100 text-amber-800">
+                                        Waiting Confirmation
+                                    </span>
                                 @endif
                                 
                                 <form action="{{ route('admin.reservations.update', $reservation->id) }}" method="POST" class="inline ml-2">
@@ -191,6 +195,40 @@
                             </div>
                         </div>
                     </div>
+                    @if($reservation->payment_proof)
+                        <div class="mt-4">
+                            <span class="text-sm font-medium text-gray-500">Payment Proof:</span>
+                            @if(Str::endsWith($reservation->payment_proof, ['.jpg', '.jpeg', '.png']))
+                                <div class="mt-2">
+                                    <img src="{{ asset('storage/' . $reservation->payment_proof) }}" alt="Payment Proof" class="max-w-xs rounded shadow">
+                                </div>
+                            @elseif(Str::endsWith($reservation->payment_proof, ['.pdf']))
+                                <div class="mt-2">
+                                    <a href="{{ asset('storage/' . $reservation->payment_proof) }}" target="_blank" class="text-medium-green underline">View PDF</a>
+                                </div>
+                            @else
+                                <div class="mt-2">
+                                    <a href="{{ asset('storage/' . $reservation->payment_proof) }}" target="_blank" class="text-medium-green underline">Download File</a>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
+                    @if($reservation->payment_status === 'waiting_confirmation')
+                        <form action="{{ route('admin.reservations.update', $reservation->id) }}" method="POST" class="mt-4 flex space-x-2">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="action" value="update_payment">
+                            <input type="hidden" name="payment_status" value="paid">
+                            <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Confirm Payment</button>
+                        </form>
+                        <form action="{{ route('admin.reservations.update', $reservation->id) }}" method="POST" class="mt-2 flex space-x-2">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="action" value="update_payment">
+                            <input type="hidden" name="payment_status" value="failed">
+                            <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Reject Payment</button>
+                        </form>
+                    @endif
                 </div>
             </div>
             

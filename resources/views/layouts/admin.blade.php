@@ -25,6 +25,7 @@
     
     <style>
         [x-cloak] { display: none !important; }
+        body { padding-top: 0 !important; }
     </style>
 
     @stack('styles')

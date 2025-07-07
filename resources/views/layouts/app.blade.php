@@ -57,21 +57,21 @@
         }
         
         .text-gradient {
-            background: linear-gradient(90deg, #4f46e5, #ec4899);
+            background: linear-gradient(90deg, var(--color-medium-green), var(--color-light-green));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
         .btn-gradient {
-            background: linear-gradient(90deg, #4f46e5, #6366f1);
+            background: linear-gradient(90deg, var(--color-medium-green), var(--color-light-green));
             transition: all 0.3s ease;
             display: inline-block; /* Fix for button alignment */
             text-align: center;
         }
         
         .btn-gradient:hover {
-            background: linear-gradient(90deg, #4338ca, #4f46e5);
+            background: linear-gradient(90deg, var(--color-dark-green), var(--color-medium-green));
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
         }
@@ -150,14 +150,90 @@
                 margin-top: 0.5rem;
             }
         }
+        
+        body {
+            padding-top: 64px; /* Sesuaikan dengan tinggi navbar */
+        }
+        
+        @media (max-width: 640px) {
+            body {
+                padding-top: 56px; /* Tinggi navbar untuk layar kecil */
+            }
+        }
+        
+        /* Navbar styles */
+        nav {
+            background-color: var(--color-darkest-green);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        
+        /* Default state */
+        nav a {
+            color: var(--color-lightest-green) !important;
+            transition: color 0.3s ease, opacity 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--color-light-green) !important;
+            opacity: 0.9;
+        }
+        
+        nav .text-gradient {
+            background: linear-gradient(90deg, var(--color-lightest-green), var(--color-light-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Scrolled state - keep consistent */
+        nav.scrolled {
+            background-color: var(--color-darkest-green);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        /* Ensure consistent text color */
+        nav a,
+        nav.scrolled a {
+            color: var(--color-lightest-green) !important;
+        }
+        
+        nav .text-gradient,
+        nav.scrolled .text-gradient {
+            background: linear-gradient(90deg, var(--color-lightest-green), var(--color-light-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Active/Current page indicator */
+        nav a.active {
+            color: var(--color-light-green) !important;
+            border-bottom: 2px solid var(--color-light-green);
+        }
+        
+        /* Ensure navbar is always visible */
+        body {
+            padding-top: 64px;
+        }
+        
+        @media (max-width: 640px) {
+            body {
+                padding-top: 56px;
+            }
+        }
     </style>
     
     @stack('styles')
 </head>
-<body class="font-sans antialiased bg-gray-100">
+<body class="font-sans antialiased bg-lightest-green">
     <div class="min-h-screen flex flex-col">
         <!-- Navigation -->
-        <nav class="bg-white shadow-sm" x-data="{ open: false }">
+        <nav class="sticky top-0 z-50" x-data="{ open: false }">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
                     <div class="flex">
@@ -168,19 +244,19 @@
                         </div>
                         
                         <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                            <a href="{{ route('home') }}" class="inline-flex items-center px-1 pt-1 border-b-2 hover-underline {{ request()->routeIs('home') ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
+                            <a href="{{ route('home') }}" class="inline-flex items-center px-1 pt-1 border-b-2 hover-underline {{ request()->routeIs('home') ? 'active' : 'border-transparent' }} text-dark-green hover:text-medium-green">
                                 Home
                             </a>
-                            <a href="{{ route('rooms.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 hover-underline {{ request()->routeIs('rooms.*') ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
+                            <a href="{{ route('rooms.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 hover-underline {{ request()->routeIs('rooms.*') ? 'active' : 'border-transparent' }} text-dark-green hover:text-medium-green">
                                 Rooms
                             </a>
-                            <a href="{{ route('gallery') }}" class="inline-flex items-center px-1 pt-1 border-b-2 hover-underline {{ request()->routeIs('gallery') ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
+                            <a href="{{ route('gallery') }}" class="inline-flex items-center px-1 pt-1 border-b-2 hover-underline {{ request()->routeIs('gallery') ? 'active' : 'border-transparent' }} text-dark-green hover:text-medium-green">
                                 Gallery
                             </a>
-                            <a href="{{ route('about') }}" class="inline-flex items-center px-1 pt-1 border-b-2 hover-underline {{ request()->routeIs('about') ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
+                            <a href="{{ route('about') }}" class="inline-flex items-center px-1 pt-1 border-b-2 hover-underline {{ request()->routeIs('about') ? 'active' : 'border-transparent' }} text-dark-green hover:text-medium-green">
                                 About
                             </a>
-                            <a href="{{ route('contact') }}" class="inline-flex items-center px-1 pt-1 border-b-2 hover-underline {{ request()->routeIs('contact') ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
+                            <a href="{{ route('contact') }}" class="inline-flex items-center px-1 pt-1 border-b-2 hover-underline {{ request()->routeIs('contact') ? 'active' : 'border-transparent' }} text-dark-green hover:text-medium-green">
                                 Contact
                             </a>
                         </div>
@@ -189,8 +265,8 @@
                     <div class="hidden sm:ml-6 sm:flex sm:items-center">
                         @guest
                             <div class="ml-3 relative">
-                                <button @click="$dispatch('open-auth-modal')" class="inline-flex items-center px-5 py-2 border border-gray-300 rounded-full text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition duration-150 ease-in-out">
-                                    <svg class="mr-2 h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <button @click="$dispatch('open-auth-modal')" class="inline-flex items-center px-5 py-2 border border-gray-300 rounded-full text-sm font-medium text-dark-green bg-lightest-green hover:bg-light-green focus:outline-none transition duration-150 ease-in-out">
+                                    <svg class="mr-2 h-4 w-4 text-dark-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                                     </svg>
                                     <span>Sign In or Join</span>
@@ -237,7 +313,7 @@
                     </div>
                     
                     <div class="-mr-2 flex items-center sm:hidden">
-                        <button @click="open = !open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition">
+                        <button @click="open = !open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500">
                             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                 <path :class="{'hidden': open, 'inline-flex': !open}" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                                 <path :class="{'hidden': !open, 'inline-flex': open}" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -250,19 +326,19 @@
             <!-- Mobile menu -->
             <div :class="{'block': open, 'hidden': !open}" class="hidden sm:hidden">
                 <div class="pt-2 pb-3 space-y-1">
-                    <a href="{{ route('home') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('home') ? 'border-indigo-500 text-indigo-700 bg-indigo-50' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }}">
+                    <a href="{{ route('home') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('home') ? 'border-medium-green text-darkest-green' : 'border-transparent text-dark-green hover:border-medium-green hover:text-dark-green' }}">
                         Home
                     </a>
-                    <a href="{{ route('rooms.index') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('rooms.*') ? 'border-indigo-500 text-indigo-700 bg-indigo-50' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }}">
+                    <a href="{{ route('rooms.index') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('rooms.*') ? 'border-medium-green text-darkest-green' : 'border-transparent text-dark-green hover:border-medium-green hover:text-dark-green' }}">
                         Rooms
                     </a>
-                    <a href="{{ route('gallery') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('gallery') ? 'border-indigo-500 text-indigo-700 bg-indigo-50' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }}">
+                    <a href="{{ route('gallery') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('gallery') ? 'border-medium-green text-darkest-green' : 'border-transparent text-dark-green hover:border-medium-green hover:text-dark-green' }}">
                         Gallery
                     </a>
-                    <a href="{{ route('about') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('about') ? 'border-indigo-500 text-indigo-700 bg-indigo-50' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }}">
+                    <a href="{{ route('about') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('about') ? 'border-medium-green text-darkest-green' : 'border-transparent text-dark-green hover:border-medium-green hover:text-dark-green' }}">
                         About
                     </a>
-                    <a href="{{ route('contact') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('contact') ? 'border-indigo-500 text-indigo-700 bg-indigo-50' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }}">
+                    <a href="{{ route('contact') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('contact') ? 'border-medium-green text-darkest-green' : 'border-transparent text-dark-green hover:border-medium-green hover:text-dark-green' }}">
                         Contact
                     </a>
                 </div>
@@ -271,7 +347,7 @@
                     <div class="pt-4 pb-3 border-t border-gray-200">
                         <div class="space-y-1" x-data="{ dropdownOpen: false }">
                             <div class="px-4 py-2">
-                                <button @click="$dispatch('open-auth-modal'); open = false; dropdownOpen = false;" class="w-full flex justify-center items-center py-2 px-4 border border-gray-300 rounded-full shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none">
+                                <button @click="$dispatch('open-auth-modal'); open = false; dropdownOpen = false;" class="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-full shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none">
                                     <svg class="mr-2 h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                                     </svg>
@@ -312,7 +388,7 @@
             x-show="show"
             x-on:open-auth-modal.window="show = true"
             x-on:keydown.escape.window="show = false"
-            class="fixed inset-0 z-50 pointer-events-none overflow-hidden"
+            class="fixed inset-0 z-[2001] pointer-events-none overflow-hidden"
             x-cloak
         >
             <!-- Sidebar panel -->
@@ -353,7 +429,7 @@
                                 </div>
                                 
                                 <div class="mt-6">
-                                    <a href="{{ route('register') }}" class="block w-full py-3 px-4 rounded-md shadow bg-blue-600 text-white font-medium text-center border border-transparent hover:bg-blue-700 focus:outline-none">
+                                    <a href="{{ route('register') }}" class="block w-full py-3 px-4 rounded-md shadow btn-gradient text-white font-medium text-center border border-transparent focus:outline-none">
                                         Join For Free
                                     </a>
                                 </div>
@@ -401,7 +477,7 @@
                                     </div>
                                     
                                     <div>
-                                        <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                        <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white btn-gradient focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-medium-green">
                                             Sign In
                                         </button>
                                     </div>
@@ -429,38 +505,38 @@
         <div x-data="{ show: false }" x-on:open-register-modal.window="$dispatch('open-auth-modal')" x-cloak></div>
         
         <!-- Footer -->
-        <footer class="bg-gray-800 text-white py-8">
+        <footer class="bg-darkest-green text-lightest-green py-8">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div>
-                        <h3 class="text-xl font-bold mb-4">Hotel<span class="text-amber-500">Az</span></h3>
-                        <p class="text-gray-300 mb-4">Experience luxury and comfort at our premium hotel. We offer the best accommodations for your perfect stay.</p>
+                        <h3 class="text-xl font-bold mb-4">Hotel<span class="text-light-green">Az</span></h3>
+                        <p class="text-light-green mb-4">Experience luxury and comfort at our premium hotel. We offer the best accommodations for your perfect stay.</p>
                         <div class="flex space-x-4">
-                            <a href="#" class="text-gray-300 hover:text-white">
+                            <a href="#" class="text-light-green hover:text-lightest-green">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a href="#" class="text-gray-300 hover:text-white">
+                            <a href="#" class="text-light-green hover:text-lightest-green">
                                 <i class="fab fa-twitter"></i>
                             </a>
-                            <a href="#" class="text-gray-300 hover:text-white">
+                            <a href="#" class="text-light-green hover:text-lightest-green">
                                 <i class="fab fa-instagram"></i>
                             </a>
                         </div>
                     </div>
                     
                     <div>
-                        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                        <h3 class="text-lg font-semibold mb-4 text-lightest-green">Quick Links</h3>
                         <ul class="space-y-2">
-                            <li><a href="{{ route('home') }}" class="text-gray-300 hover:text-white">Home</a></li>
-                            <li><a href="{{ route('rooms.index') }}" class="text-gray-300 hover:text-white">Rooms</a></li>
-                            <li><a href="{{ route('about') }}" class="text-gray-300 hover:text-white">About Us</a></li>
-                            <li><a href="{{ route('contact') }}" class="text-gray-300 hover:text-white">Contact Us</a></li>
+                            <li><a href="{{ route('home') }}" class="text-light-green hover:text-lightest-green">Home</a></li>
+                            <li><a href="{{ route('rooms.index') }}" class="text-light-green hover:text-lightest-green">Rooms</a></li>
+                            <li><a href="{{ route('about') }}" class="text-light-green hover:text-lightest-green">About Us</a></li>
+                            <li><a href="{{ route('contact') }}" class="text-light-green hover:text-lightest-green">Contact Us</a></li>
                         </ul>
                     </div>
                     
                     <div>
-                        <h3 class="text-lg font-semibold mb-4">Contact Info</h3>
-                        <ul class="space-y-2 text-gray-300">
+                        <h3 class="text-lg font-semibold mb-4 text-lightest-green">Contact Info</h3>
+                        <ul class="space-y-2 text-light-green">
                             <li class="flex items-start">
                                 <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
                                 <span>123 Hotel Street, City Name, Country</span>
@@ -477,7 +553,7 @@
                     </div>
                 </div>
                 
-                <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <div class="border-t border-dark-green mt-8 pt-6 text-center text-light-green">
                     <p>&copy; {{ date('Y') }} HotelAz. All rights reserved.</p>
                 </div>
             </div>
@@ -543,5 +619,44 @@
         });
     </script>
     @endif
+    
+    <!-- Navbar Scroll Script -->
+    <script>
+        (function() {
+            const navbar = document.querySelector('nav[x-data="{ open: false }"]');
+            if (!navbar) return;
+
+            const scrollThreshold = 50;
+            let lastScrollTop = 0;
+
+            function updateNavbar() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > scrollThreshold) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+
+                lastScrollTop = scrollTop;
+            }
+
+            // Throttle scroll event
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateNavbar();
+                        ticking = false;
+                    });
+
+                    ticking = true;
+                }
+            });
+
+            // Initial check
+            updateNavbar();
+        })();
+    </script>
 </body>
-</html> 
+</html>

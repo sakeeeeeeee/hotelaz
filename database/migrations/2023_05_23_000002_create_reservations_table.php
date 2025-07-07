@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('status')->default('pending'); // pending, confirmed, cancelled, completed
             $table->string('payment_status')->default('pending'); // pending, paid, refunded
             $table->string('payment_method')->nullable();
+            $table->string('payment_proof')->nullable(); // path bukti pembayaran
             $table->text('special_requests')->nullable();
             $table->timestamps();
         });

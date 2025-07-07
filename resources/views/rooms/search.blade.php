@@ -74,15 +74,11 @@
                 @forelse ($availableRooms as $room)
                     <div class="bg-white overflow-hidden shadow-lg rounded-lg transition-transform duration-300 hover:scale-105">
                         <div class="relative pb-2/3">
-                            @if ($room->image)
-                                @if (Str::startsWith($room->image, 'http'))
-                                    <img src="{{ $room->image }}" alt="{{ $room->name }}" class="w-full h-64 object-cover">
-                                @else
-                                    <img src="{{ Storage::url($room->image) }}" alt="{{ $room->name }}" class="w-full h-64 object-cover">
-                                @endif
+                            @if ($room->featured_image)
+                                <img src="{{ route('storage.image', ['path' => $room->featured_image]) }}" alt="{{ $room->name }}" class="w-full h-64 object-cover">
                             @else
-                                <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
-                                    <span class="text-gray-400 text-lg">No Image Available</span>
+                                <div class="w-full h-64 bg-light-green flex items-center justify-center">
+                                    <span class="text-darkest-green text-lg">No Image Available</span>
                                 </div>
                             @endif
                             <div class="absolute top-0 right-0 bg-amber-500 text-white px-3 py-1 m-2 rounded-md font-semibold">
@@ -92,7 +88,7 @@
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ $room->name }}</h3>
                             <p class="text-gray-500 mb-4">{{ Str::limit($room->description, 100) }}</p>
-                            <div class="flex items-center text-gray-600 mb-4">
+                            <div class="flex items-center text-dark-green mb-4">
                                 <i class="fas fa-user-friends mr-2"></i>
                                 <span>{{ $room->capacity }} {{ $room->capacity > 1 ? 'Guests' : 'Guest' }}</span>
                                 <i class="fas fa-bed mx-4 mr-2"></i>

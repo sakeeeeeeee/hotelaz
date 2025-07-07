@@ -15,12 +15,9 @@ class RoomController extends Controller
 
     public function show(Room $room)
     {
-        // Get related rooms (same bed type or capacity)
+        // Get related rooms (same capacity)
         $relatedRooms = Room::where('id', '!=', $room->id)
-            ->where(function($query) use ($room) {
-                $query->where('bed_type', $room->bed_type)
-                      ->orWhere('capacity', $room->capacity);
-            })
+            ->where('capacity', $room->capacity)
             ->where('status', 'available')
             ->limit(3)
             ->get();

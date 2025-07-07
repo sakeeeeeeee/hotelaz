@@ -9,6 +9,11 @@
 @source '../**/*.js';
 
 @theme {
+    --color-darkest-green: #0F2A1D;
+    --color-dark-green: #375534;
+    --color-medium-green: #6B9071;
+    --color-light-green: #AEC3B0;
+    --color-lightest-green: #E3EED4;
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
@@ -37,17 +42,18 @@
 
 /* Button gradient */
 .btn-gradient {
-    background: linear-gradient(to right, #3b82f6, #6366f1);
+    background: linear-gradient(to right, var(--color-medium-green), var(--color-light-green));
     transition: all 0.3s ease;
 }
 
 .btn-gradient:hover {
-    background: linear-gradient(to right, #2563eb, #4f46e5);
+    background: linear-gradient(to right, var(--color-dark-green), var(--color-medium-green));
     transform: translateY(-2px);
 }
 
 /* Hero section enhancements */
 .animate-text {
+    background: linear-gradient(to right, var(--color-darkest-green), var(--color-dark-green));
     background-size: 200% 200%;
     background-clip: text;
     -webkit-background-clip: text;
@@ -61,4 +67,27 @@
 
 .hover-lift:hover {
     transform: translateY(-5px);
+}
+
+/* Background and text color utilities */
+.bg-darkest-green { background-color: var(--color-darkest-green); }
+.bg-dark-green { background-color: var(--color-dark-green); }
+.bg-medium-green { background-color: var(--color-medium-green); }
+.bg-light-green { background-color: var(--color-light-green); }
+.bg-lightest-green { background-color: var(--color-lightest-green); }
+
+.text-darkest-green { color: var(--color-darkest-green); }
+.text-dark-green { color: var(--color-dark-green); }
+.text-medium-green { color: var(--color-medium-green); }
+.text-light-green { color: var(--color-light-green); }
+.text-lightest-green { color: var(--color-lightest-green); }
+
+body {
+    padding-top: 80px; /* Sesuaikan dengan tinggi navbar, sebelumnya 64px */
+}
+
+@media (max-width: 640px) {
+    body {
+        padding-top: 70px; /* Tinggi navbar untuk layar kecil, sebelumnya 56px */
+    }
 }

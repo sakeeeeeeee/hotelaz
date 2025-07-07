@@ -7,6 +7,13 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        'brand-darkest': '#0F2A1D',
+        'brand-dark': '#375534',
+        'brand-medium': '#6B9071',
+        'brand-light': '#AEC3B0',
+        'brand-lightest': '#E3EED4',
+      },
       animation: {
         'bounce-slow': 'bounce 3s infinite',
         'text': 'text 5s ease infinite',
