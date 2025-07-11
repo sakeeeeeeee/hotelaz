@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 // Public routes
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return 'Laravel is working!';
+});
+
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::post('/contact', [HomeController::class, 'sendContactForm'])->name('contact.send');
@@ -128,7 +131,4 @@ Route::get('/storage/image/{path}', function ($path) {
     abort(404);
 })->where('path', '.*')->name('storage.image');
 
-Route::get('/', function () {
-    return 'Laravel is working!';
-});
 
