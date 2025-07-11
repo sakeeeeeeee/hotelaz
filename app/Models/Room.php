@@ -11,7 +11,6 @@ class Room extends Model
 
     protected $fillable = [
         'name',
-        'room_number',
         'type',
         'description',
         'price_per_night',
@@ -20,6 +19,7 @@ class Room extends Model
         'featured_image',
         'gallery_images',
         'status', // available, booked, maintenance
+        'quantity', // jumlah unit kamar
     ];
 
     protected $casts = [
@@ -30,5 +30,10 @@ class Room extends Model
     public function reservations()
     {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function roomUnits()
+    {
+        return $this->hasMany(RoomUnit::class);
     }
 } 

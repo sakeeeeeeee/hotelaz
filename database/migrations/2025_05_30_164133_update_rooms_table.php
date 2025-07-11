@@ -19,6 +19,7 @@ return new class extends Migration
             $table->json('features')->after('capacity')->nullable();
             $table->string('featured_image')->after('features')->nullable();
             $table->json('gallery_images')->after('featured_image')->nullable();
+            $table->integer('quantity')->default(1)->after('status');
         });
         
         // Update existing records with generated room numbers
@@ -60,6 +61,7 @@ return new class extends Migration
             
             // Remove new columns
             $table->dropColumn(['room_number', 'type', 'features', 'featured_image', 'gallery_images']);
+            $table->dropColumn('quantity');
         });
     }
 };

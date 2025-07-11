@@ -63,7 +63,8 @@ class ReservationController extends Controller
         $checkIn = Carbon::parse($request->check_in_date);
         $checkOut = Carbon::parse($request->check_out_date);
 
-        $isAvailable = Reservation::where('room_id', $room->id)
+        // Hitung jumlah reservasi aktif pada rentang tanggal tersebut
+        $bookedCount = Reservation::where('room_id', $room->id)
             ->where('status', '!=', 'cancelled')
             ->where(function($query) use ($checkIn, $checkOut) {
                 $query->whereBetween('check_in_date', [$checkIn, $checkOut])
@@ -72,10 +73,11 @@ class ReservationController extends Controller
                         $q->where('check_in_date', '<=', $checkIn)
                           ->where('check_out_date', '>=', $checkOut);
                     });
-            })->doesntExist();
+            })
+            ->count();
 
-        if (!$isAvailable) {
-            return back()->with('error', 'Kamar ini tidak tersedia untuk tanggal yang dipilih.');
+        if ($bookedCount >= $room->quantity) {
+            return back()->with('error', 'Kamar ini sudah penuh untuk tanggal yang dipilih.');
         }
 
         // Handle upload payment proof
@@ -102,7 +104,8 @@ class ReservationController extends Controller
 
         // TODO: Redirect to payment gateway
 
-        return redirect()->route('reservations.show', $reservation)->with('success', 'Reservasi berhasil dibuat. Silakan lanjutkan ke pembayaran.');
+        return redirect()->route('reservations.show', $reservation)
+            ->with('success', 'Bukti pembayaran berhasil dikirim. Reservasi Anda sedang menunggu konfirmasi admin.');
     }
 
     public function show(Reservation $reservation)
@@ -154,6 +157,11 @@ class ReservationController extends Controller
 
             // Jika status reservasi menjadi confirmed, kirim email konfirmasi ke user
             if ($request->status === 'confirmed') {
+                // Generate resi unik jika belum ada
+                if (!$reservation->resi) {
+                    $reservation->resi = 'HZ-' . strtoupper(uniqid()) . '-' . $reservation->id;
+                    $reservation->save();
+                }
                 \Log::info('Sending ReservationConfirmed email (confirmed) to: ' . $reservation->user->email);
                 Mail::to($reservation->user->email)->send(new ReservationConfirmed($reservation));
             }

@@ -2,6 +2,7 @@
 <p>Your reservation at <b>HotelAz</b> has been <b>confirmed</b>!</p>
 <p>Here are your reservation details:</p>
 <ul>
+    <li><b>Booking Reference (Resi):</b> {{ $reservation->resi }}</li>
     <li><b>Room:</b> {{ $reservation->room->name }}</li>
     <li><b>Check In:</b> {{ $reservation->check_in_date->format('d M Y') }}</li>
     <li><b>Check Out:</b> {{ $reservation->check_out_date->format('d M Y') }}</li>

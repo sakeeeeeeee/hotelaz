@@ -33,7 +33,6 @@ class RoomController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'room_number' => 'required|string|max:20|unique:rooms',
             'type' => 'required|string|in:standard,deluxe,suite,executive,presidential',
             'description' => 'required|string',
             'price_per_night' => 'required|numeric|min:0',
@@ -43,17 +42,18 @@ class RoomController extends Controller
             'featured_image' => 'nullable|image|max:2048',
             'images.*' => 'nullable|image|max:2048',
             'status' => 'required|in:available,booked,maintenance',
+            'quantity' => 'required|integer|min:1',
         ]);
 
         $room = new Room();
         $room->name = $request->name;
-        $room->room_number = $request->room_number;
         $room->type = $request->type;
         $room->description = $request->description;
         $room->price_per_night = $request->price_per_night;
         $room->capacity = $request->capacity;
         $room->features = json_encode($request->features ?? []);
         $room->status = $request->status;
+        $room->quantity = $request->quantity;
 
         if ($request->hasFile('featured_image')) {
             $path = $request->file('featured_image')->store('room-images', 'public');
@@ -71,6 +71,15 @@ class RoomController extends Controller
             }
             $room->gallery_images = json_encode($galleryImages);
             $room->save();
+        }
+
+        // Generate RoomUnit
+        for ($i = 1; $i <= $room->quantity; $i++) {
+            $unitNumber = 'R' . $room->id . '-' . str_pad($i, 2, '0', STR_PAD_LEFT); // contoh: R1-01, R1-02, dst
+            $room->roomUnits()->create([
+                'room_number' => $unitNumber,
+                'status' => 'available',
+            ]);
         }
 
         return redirect()->route('admin.rooms.index')->with('success', 'Room added successfully.');
@@ -99,7 +108,6 @@ class RoomController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'room_number' => 'required|string|max:20|unique:rooms,room_number,'.$room->id,
             'type' => 'required|string|in:standard,deluxe,suite,executive,presidential',
             'description' => 'required|string',
             'price_per_night' => 'required|numeric|min:0',
@@ -109,16 +117,17 @@ class RoomController extends Controller
             'featured_image' => 'nullable|image|max:2048',
             'images.*' => 'nullable|image|max:2048',
             'status' => 'required|in:available,booked,maintenance',
+            'quantity' => 'required|integer|min:1',
         ]);
 
         $room->name = $request->name;
-        $room->room_number = $request->room_number;
         $room->type = $request->type;
         $room->description = $request->description;
         $room->price_per_night = $request->price_per_night;
         $room->capacity = $request->capacity;
         $room->features = json_encode($request->features ?? []);
         $room->status = $request->status;
+        $room->quantity = $request->quantity;
 
         if ($request->hasFile('featured_image')) {
             // Delete old image
@@ -144,7 +153,28 @@ class RoomController extends Controller
             $room->gallery_images = json_encode(array_merge($existingImages, $galleryImages));
         }
 
+        $oldQuantity = $room->getOriginal('quantity');
         $room->save();
+
+        // Update RoomUnit jika quantity berubah
+        if ($request->quantity > $oldQuantity) {
+            for ($i = $oldQuantity + 1; $i <= $request->quantity; $i++) {
+                $unitNumber = 'R' . $room->id . '-' . str_pad($i, 2, '0', STR_PAD_LEFT);
+                $room->roomUnits()->create([
+                    'room_number' => $unitNumber,
+                    'status' => 'available',
+                ]);
+            }
+        } elseif ($request->quantity < $oldQuantity) {
+            $unitsToDelete = $room->roomUnits()
+                ->where('status', 'available')
+                ->orderByDesc('room_number')
+                ->take($oldQuantity - $request->quantity)
+                ->get();
+            foreach ($unitsToDelete as $unit) {
+                $unit->delete();
+            }
+        }
 
         return redirect()->route('admin.rooms.index')->with('success', 'Room updated successfully.');
     }

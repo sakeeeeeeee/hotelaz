@@ -29,11 +29,7 @@
                                 class="w-full rounded-md border-light-green shadow-sm focus:border-medium-green focus:ring focus:ring-light-green focus:ring-opacity-50">
                         </div>
                         
-                        <div class="mb-4">
-                            <label for="room_number" class="block text-sm font-medium text-dark-green mb-1">Room Number</label>
-                            <input type="text" name="room_number" id="room_number" value="{{ old('room_number', $room->room_number) }}" required
-                                class="w-full rounded-md border-light-green shadow-sm focus:border-medium-green focus:ring focus:ring-light-green focus:ring-opacity-50">
-                        </div>
+                        {{-- Hapus input Room Number --}}
                         
                         <div class="mb-4">
                             <label for="type" class="block text-sm font-medium text-dark-green mb-1">Room Type</label>
@@ -67,6 +63,12 @@
                                 <option value="booked" {{ old('status', $room->status) === 'booked' ? 'selected' : '' }}>Booked</option>
                                 <option value="maintenance" {{ old('status', $room->status) === 'maintenance' ? 'selected' : '' }}>Maintenance</option>
                             </select>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="quantity" class="block text-sm font-medium text-dark-green mb-1">Room Stock (Quantity)</label>
+                            <input type="number" name="quantity" id="quantity" value="{{ old('quantity', $room->quantity) }}" min="1" required
+                                class="w-full rounded-md border-light-green shadow-sm focus:border-medium-green focus:ring focus:ring-light-green focus:ring-opacity-50">
                         </div>
                     </div>
                     

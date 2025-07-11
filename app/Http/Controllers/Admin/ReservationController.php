@@ -106,6 +106,15 @@ class ReservationController extends Controller
             
             $reservation->update($validated);
             
+            // Jika status diubah menjadi confirmed, generate resi dan kirim email ke customer
+            if ($request->status === 'confirmed') {
+                if (!$reservation->resi) {
+                    $reservation->resi = 'HZ-' . strtoupper(uniqid()) . '-' . $reservation->id;
+                    $reservation->save();
+                }
+                \Mail::to($reservation->user->email)->send(new \App\Mail\ReservationConfirmed($reservation));
+            }
+            
             // If status is cancelled, make the room available
             if ($request->status === 'cancelled' && $reservation->room) {
                 $room = $reservation->room;

@@ -5,9 +5,9 @@
 @section('content')
     <div class="bg-lightest-green">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="lg:grid lg:grid-cols-2 lg:gap-x-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-x-8 items-start">
                 <!-- Room Image -->
-                <div class="lg:max-w-lg lg:self-end">
+                <div class="lg:max-w-lg">
                     <div class="rounded-lg overflow-hidden">
                         @if ($room->featured_image)
                             <img src="{{ route('storage.image', ['path' => $room->featured_image]) }}" alt="{{ $room->name }}" class="w-full h-96 object-cover rounded-lg">
@@ -20,7 +20,7 @@
                 </div>
                 
                 <!-- Room Details -->
-                <div class="mt-10 lg:mt-0 lg:col-start-2">
+                <div class="lg:mt-0 lg:col-start-2">
                     <h1 class="text-3xl font-extrabold tracking-tight text-darkest-green">{{ $room->name }}</h1>
                     
                     <div class="mt-4">
