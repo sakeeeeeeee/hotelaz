@@ -127,3 +127,8 @@ Route::get('/storage/image/{path}', function ($path) {
     
     abort(404);
 })->where('path', '.*')->name('storage.image');
+
+Route::get('/', function () {
+    return 'Laravel is working!';
+});
+
