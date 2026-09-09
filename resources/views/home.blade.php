@@ -210,7 +210,8 @@
                             
                             <div class="mt-6 flex space-x-2">
                                 @php
-                                    $features = json_decode($room->features ?? '[]', true);
+                                    // features is array-cast on the model; handle legacy JSON strings too
+                                    $features = is_array($room->features) ? $room->features : (array) json_decode((string) ($room->features ?? '[]'), true);
                                 @endphp
                                 @foreach(['wifi' => 'WiFi', 'tv' => 'TV', 'ac' => 'AC'] as $feature => $label)
                                     @if(in_array($feature, $features))
