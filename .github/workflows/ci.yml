@@ -19,8 +19,20 @@ jobs:
           php-version: '8.4'
           coverage: none
 
-      - name: Install dependencies
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install PHP dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build frontend assets
+        run: npm run build
 
       - name: Copy environment file
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
