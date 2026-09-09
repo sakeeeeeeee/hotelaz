@@ -1,4 +1,5 @@
 # Hotelaz
+<p align="center"><img src="https://github.com/sakeeeeeeee/hotelaz/actions/workflows/ci.yml/badge.svg" alt="CI"></p>
 
 A full-featured hotel management web application built with Laravel. Guests can browse rooms, check availability, and make reservations with payment-proof upload; admins manage rooms, bookings, galleries, testimonials, and users from a dedicated dashboard with revenue statistics.
 
